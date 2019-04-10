@@ -1,49 +1,56 @@
+import copy
 import numpy as np
 
-people =[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2]
+def createAgents(leftists, moderates, rightists):
+    return ([0]*leftists + [1]*moderates + [2]*rightists)
 
-leftist = 0
-moderate = 0
-rightist = 0
+def countPeople(people):
+    leftists = 0
+    moderates = 0
+    rightists = 0
 
-# Counter depending on the initiialization of the people in the array
-for person in people:
-    if person == 0:
-        leftist += 1
-    if person == 1:
-        moderate += 1
-    if person == 2:
-        rightist += 1
+    # Counter depending on the initiialization of the people in the array
+    for person in people:
+        if person == 0:
+            leftists += 1
+        if person == 1:
+            moderates += 1
+        if person == 2:
+            rightists += 1
 
-while moderate != 0:
+    return leftists, moderates, rightists
 
-    #  for loop for a single timestep
-    for i in range(len(people)):
+def runSimulation(people):
+    new_people = copy.deepcopy(people)
+    for i in range(len(new_people)):
         coin = np.random.random_sample()
-        if people[i] == 0:
+        if new_people[i] == 0:
             if coin > 0.3:
-                people[i] = 0
+                new_people[i] = 0
             else:
-                people[i] = 1
-                leftist -= 1
-                moderate += 1
-        elif people[i] == 1:
+                new_people[i] = 1
+        elif new_people[i] == 1:
             if coin < 0.4:
-                people[i] = 0
-                leftist += 1
-                moderate -= 1
+                new_people[i] = 0
             elif coin < 0.6:
-                people[i] = 1
+                new_people[i] = 1
             else:
-                people[i] = 2
-                rightist += 1
-                moderate -= 1
+                new_people[i] = 2
         else:
             if coin > 0.3:
-                people[i] = 2
+                new_people[i] = 2
             else:
-                people[i] = 1
-                rightist -= 1
-                moderate += 1
+                new_people[i] = 1
 
-    print "leftist", leftist, "moderate", moderate, "rightist", rightist
+    return new_people
+
+if __name__== "__main__":
+    people = createAgents(10,10,10)
+
+    leftists, moderates, rightists = countPeople(people)
+
+    while moderates != 0:
+        people = runSimulation(people)
+        leftists, moderates, rightists = countPeople(people)
+
+        print "leftist", leftists, "moderate", moderates, "rightist", rightists
