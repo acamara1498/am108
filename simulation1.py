@@ -20,7 +20,7 @@ def countPeople(people):
 
     return leftists, moderates, rightists
 
-def runSimulation(people):
+def run_simulation(people):
     new_people = copy.deepcopy(people)
     for i in range(len(new_people)):
         coin = np.random.random_sample()
@@ -44,13 +44,26 @@ def runSimulation(people):
 
     return new_people
 
-if __name__== "__main__":
-    people = createAgents(10,10,10)
 
-    leftists, moderates, rightists = countPeople(people)
+def run_n_simulations(n=1, leftist_initial=10, moderate_initial=10, rightist_initial=10):
+    avgl = 0
+    avgm = 0
+    avgr = 0
+    for i in range(n):
+        people = createAgents(leftist_initial, moderate_initial, rightist_initial)
 
-    while moderates != 0:
-        people = runSimulation(people)
         leftists, moderates, rightists = countPeople(people)
 
-        print "leftist", leftists, "moderate", moderates, "rightist", rightists
+        while moderates != 0:
+            people = run_simulation(people)
+            leftists, moderates, rightists = countPeople(people)
+
+        avgl += leftists
+        avgm += moderates
+        avgr += rightists
+
+    print "average leftist", avgl/float(n), "average moderate", avgm/float(n), "average rightist", avgr/float(n)
+
+if __name__== "__main__":
+    run_n_simulations()
+    run_n_simulations(n=1, leftist_initial=5, moderate_initial=10, rightist_initial=4)
