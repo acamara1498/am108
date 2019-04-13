@@ -1,7 +1,6 @@
-# am108
-## Encouraging moderation
+# AM108 Final Project: Encouraging moderation
 
-A Brief Background:
+## A Brief Background:
 We are interested in modeling how ideological views held by societies at large evolve over time. 
 In the Marvel Hong Papush Strogatz model, the probability of a person’s switching their ideological 
 stance is dependent upon both their own level of extremism and the people with whom they come into contact. 
@@ -9,7 +8,7 @@ The current model relates the way populations on two sides of an issue evolve ov
 and incorporates parameters relating to stubborness of moderates, the capacity of moderates to persuade extremists, 
 and outside media influence.
 
-Running the code:
+## Running the code:
 
 ### simulation1.py 
 a basic agent based simulation where each person agent has a probablitiy of changing. This is not based on
@@ -28,5 +27,5 @@ which is preassigned.
 in the command line run:
 
 ```
-python simulation1.py
+python simple_interactions.py
 ```
