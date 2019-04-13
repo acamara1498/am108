@@ -36,14 +36,12 @@ def interaction_simulation(people, how_many_people_on_each_side=2):
             else:
                 new_people[i] = 1
 
-    print "old people", people
-    print "new people", new_people
     return new_people
 
 def run_simulations(time_steps=10, leftist_initial=10, moderate_initial=10, rightist_initial=10):
     people = create_agents(leftist_initial,moderate_initial,rightist_initial)
     for _ in range(time_steps):
-        people = interaction_simulation(people)
+        people = interaction_simulation(people, how_many_people_on_each_side=2)
 
     print "leftist", people.count(0), "moderate", people.count(1), "rightist", people.count(2)
 
