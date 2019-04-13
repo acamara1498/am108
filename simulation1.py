@@ -1,24 +1,11 @@
 import copy
 import numpy as np
 
-def createAgents(leftists, moderates, rightists):
+def create_agents(leftists, moderates, rightists):
     return ([0]*leftists + [1]*moderates + [2]*rightists)
 
-def countPeople(people):
-    leftists = 0
-    moderates = 0
-    rightists = 0
-
-    # Counter depending on the initiialization of the people in the array
-    for person in people:
-        if person == 0:
-            leftists += 1
-        if person == 1:
-            moderates += 1
-        if person == 2:
-            rightists += 1
-
-    return leftists, moderates, rightists
+def count_people(people):
+    return people.count(0), people.count(1), people.count(2)
 
 def run_simulation(people):
     new_people = copy.deepcopy(people)
@@ -50,13 +37,13 @@ def run_n_simulations(n=1, leftist_initial=10, moderate_initial=10, rightist_ini
     avgm = 0
     avgr = 0
     for i in range(n):
-        people = createAgents(leftist_initial, moderate_initial, rightist_initial)
+        people = create_agents(leftist_initial, moderate_initial, rightist_initial)
 
-        leftists, moderates, rightists = countPeople(people)
+        leftists, moderates, rightists = count_people(people)
 
         while moderates != 0:
             people = run_simulation(people)
-            leftists, moderates, rightists = countPeople(people)
+            leftists, moderates, rightists = count_people(people)
 
         avgl += leftists
         avgm += moderates
@@ -66,4 +53,4 @@ def run_n_simulations(n=1, leftist_initial=10, moderate_initial=10, rightist_ini
 
 if __name__== "__main__":
     run_n_simulations()
-    run_n_simulations(n=1, leftist_initial=5, moderate_initial=10, rightist_initial=4)
+    run_n_simulations(n=2, leftist_initial=5, moderate_initial=10, rightist_initial=4)
