@@ -46,21 +46,23 @@ def run_simulations(time_steps=10, leftist_initial=10, moderate_initial=10, righ
 
     return people.count(0), people.count(1), people.count(2)
 
-
-
-if __name__== "__main__":
+def run_n_similations(n, l_initial=10, m_initial=10, r_initial=10):
     left = 0
     mod = 0
     right = 0
-    for _ in range(1000):
-        newleft, newmod, newright = run_simulations(time_steps=300, leftist_initial=30, moderate_initial=30, rightist_initial=30)
-        left += float(newleft)/1000
-        mod += float(newmod)/1000
-        right += float(newright)/1000
 
+    for _ in range(n):
+        newleft, newmod, newright = run_simulations(time_steps=300, leftist_initial=l_initial, moderate_initial=m_initial, rightist_initial=r_initial)
+        left += float(newleft)/n
+        mod += float(newmod)/n
+        right += float(newright)/n
+
+    print n, "simulations"
     print "average leftist",left , "average moderate", mod, "average rightist", right
 
-    # run_simulations(time_steps=50)
+if __name__== "__main__":
+    left, mod, right = run_simulations(time_steps=100)
+    print "leftist",left , "moderate", mod, "rightist", right
+    run_n_similations(n=300, l_initial=1000, m_initial=1000, r_initial=1000)
 
-    # each agent is a spectrum next -> consider even distribution [0,2] or initial 0, 1,2 and people change over time based on neighbor [0,1,2]
     # people being born and dying into the model (cults, different birthrate etc)
